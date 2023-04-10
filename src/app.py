@@ -19,7 +19,7 @@ def process_image(image):
     return detections
 
 
-@st.cache
+@st.cache_data()
 def annotate_image(
     image, detections, confidence_threshold=DEFAULT_CONFIDENCE_THRESHOLD
 ):
