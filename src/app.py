@@ -53,7 +53,7 @@ img_file_buffer = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg"
 confidence_threshold = st.slider(
     "Confidence threshold", 0.0, 1.0, DEFAULT_CONFIDENCE_THRESHOLD, 0.05
 )
-
+st.write(*CLASSES)
 if img_file_buffer is not None:
     image = np.array(Image.open(img_file_buffer))
 
@@ -69,4 +69,3 @@ st.image(
 )
 
 st.write(labels)
-st.write(*CLASSES, sep = ", ")
