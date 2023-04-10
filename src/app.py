@@ -69,5 +69,7 @@ st.image(
 )
 
 st.write(labels)
+rec =[]
 for c in CLASSES :
-    st.write(c)
+    rec.append(f"{c},")
+st.write(rec)
