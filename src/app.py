@@ -69,7 +69,4 @@ st.image(
 )
 
 st.write(labels)
-rec =[]
-for c in CLASSES :
-    rec.append(f"{c},")
-st.write(rec)
+st.write(*CLASSES, sep = ", ")
