@@ -62,7 +62,6 @@ else:
     image = np.array(Image.open(demo_image))
 
 detections = process_image(image)
-st.write(detections)
 image, labels = annotate_image(image, detections, confidence_threshold)
 
 st.image(
@@ -70,3 +69,5 @@ st.image(
 )
 
 st.write(labels)
+for c in CLASSES :
+    st.write(c)
