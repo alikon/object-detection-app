@@ -13,7 +13,7 @@ from settings import DEFAULT_CONFIDENCE_THRESHOLD, DEMO_IMAGE, MODEL, PROTOTXT
 
 
 @st.cache_data()
-def process_image(image):
+def process_image(_image):
     blob = cv2.dnn.blobFromImage(
         cv2.resize(image, (300, 300)), 0.007843, (300, 300), 127.5
     )
