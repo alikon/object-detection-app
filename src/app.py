@@ -61,7 +61,7 @@ st.write(*CLASSES)
 gallery_tab, upload_tab, url_tab = st.tabs(["Gallery", "Upload", "Image URL"])
 
 with gallery_tab:
-    gallery_files = glob(os.path.join(".", "gallery", "*"))
+    gallery_files = glob(os.path.join(".", "images", "*"))
     st.write(gallery_files)
     gallery_dict = {image_path.split("/")[-1].split(".")[-2]: image_path
         for image_path in gallery_files}
