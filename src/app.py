@@ -3,6 +3,8 @@ import cv2
 from PIL import Image
 import numpy as np
 import os
+import sys
+from glob import glob
 
 from const import CLASSES, COLORS
 from settings import DEFAULT_CONFIDENCE_THRESHOLD, DEMO_IMAGE, MODEL, PROTOTXT
@@ -46,21 +48,44 @@ def annotate_image(
                 image, label, (startX, y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, COLORS[idx], 2
             )
     return image, labels
-
-
+# =======
+#   App
+# =======
 st.title("Object detection with MobileNet SSD")
-img_file_buffer = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg"])
+sys.path.insert(0, ".")
+st.write(*CLASSES)
+
+# provide options to either select an image form the gallery, upload one, or fetch from URL
+gallery_tab, upload_tab, url_tab = st.tabs(["Gallery", "Upload", "Image URL"])
+
+with gallery_tab:
+    gallery_files = glob(os.path.join(".", "images", "*"))
+    gallery_dict = {image_path.split("/")[-1].split(".")[-2].replace("-", " "): image_path
+        for image_path in gallery_files}
+
+    options = list(gallery_dict.keys())
+    file_name = st.selectbox("Select Art", 
+                        options=options, index=options.index("demo"))
+    file = gallery_dict[file_name]
+    if st.session_state.get("file_uploader") is not None:
+        st.warning("To use the Gallery, remove the uploaded image first.")
+    if st.session_state.get("image_url") not in ["", None]:
+        st.warning("To use the Gallery, remove the image URL first.")
+    image = Image.open(file)
+
+with upload_tab:
+    img_file_buffer = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg"])
+
+    if img_file_buffer is not None:
+        image = np.array(Image.open(img_file_buffer))
+    
+    else:
+        demo_image = DEMO_IMAGE
+        image = np.array(Image.open(demo_image))
+    
 confidence_threshold = st.slider(
     "Confidence threshold", 0.0, 1.0, DEFAULT_CONFIDENCE_THRESHOLD, 0.05
 )
-st.write(*CLASSES)
-if img_file_buffer is not None:
-    image = np.array(Image.open(img_file_buffer))
-
-else:
-    demo_image = DEMO_IMAGE
-    image = np.array(Image.open(demo_image))
-
 detections = process_image(image)
 image, labels = annotate_image(image, detections, confidence_threshold)
 
