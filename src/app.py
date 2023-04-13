@@ -15,7 +15,7 @@ from settings import DEFAULT_CONFIDENCE_THRESHOLD, DEMO_IMAGE, MODEL, PROTOTXT
 @st.cache_data()
 def process_image(_image):
     blob = cv2.dnn.blobFromImage(
-        cv2.resize(image, (300, 300)), 0.007843, (300, 300), 127.5
+        cv2.resize(_image, (300, 300)), 0.007843, (300, 300), 127.5
     )
     net = cv2.dnn.readNetFromCaffe(PROTOTXT, MODEL)
     net.setInput(blob)
