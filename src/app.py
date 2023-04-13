@@ -55,14 +55,13 @@ def annotate_image(
 # =======
 st.title("Object detection with MobileNet SSD")
 sys.path.insert(0, ".")
-st.write(*CLASSES)
+
 
 # provide options to either select an image form the gallery, upload one, or fetch from URL
 gallery_tab, upload_tab, url_tab = st.tabs(["Gallery", "Upload", "Image URL"])
 
 with gallery_tab:
     gallery_files = glob(os.path.join(".", "images", "*"))
-    st.write(gallery_files)
     gallery_dict = {image_path.split("/")[-1].split(".")[-2]: image_path
         for image_path in gallery_files}
     options = list(gallery_dict.keys())
@@ -111,5 +110,6 @@ image, labels = annotate_image(image, detections, confidence_threshold)
 st.image(
     image, caption=f"Processed image", use_column_width=True,
 )
-
-st.write(labels)
+with st.expander("See explanation"):
+    st.write(*CLASSES)
+    st.write(labels)
