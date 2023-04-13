@@ -78,7 +78,7 @@ with gallery_tab:
         st.warning("To use the Gallery, remove the image URL first.")
     st.write(file[2:])
     st.write(f"Current working dir: {os.getcwd()}")
-    image = np.array(Image.open(DEMO_IMAGE))
+    image = np.array(Image.open(file[2:]))
 
 with upload_tab:
     img_file_buffer = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg"])
