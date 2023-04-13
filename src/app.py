@@ -77,7 +77,7 @@ with gallery_tab:
     if st.session_state.get("image_url") not in ["", None]:
         st.warning("To use the Gallery, remove the image URL first.")
     st.write(file)
-    st.write(f"Current working dir: "{os.getcwd()})
+    st.write(f"Current working dir: {os.getcwd()}")
     image = Image.open(file)
 
 with upload_tab:
