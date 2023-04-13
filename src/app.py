@@ -13,9 +13,9 @@ from settings import DEFAULT_CONFIDENCE_THRESHOLD, DEMO_IMAGE, MODEL, PROTOTXT
 
 
 @st.cache_data()
-def process_image(_image):
+def process_image(image):
     blob = cv2.dnn.blobFromImage(
-        cv2.resize(_image, (300, 300)), 0.007843, (300, 300), 127.5
+        cv2.resize(image, (300, 300)), 0.007843, (300, 300), 127.5
     )
     net = cv2.dnn.readNetFromCaffe(PROTOTXT, MODEL)
     net.setInput(blob)
@@ -65,6 +65,7 @@ with gallery_tab:
     st.write(gallery_files)
     gallery_dict = {image_path.split("/")[-1].split(".")[-2]: image_path
         for image_path in gallery_files}
+    st.write(gallery_dict)
     st.write(gallery_dict.keys())
     options = list(gallery_dict.keys())
     file_name = st.selectbox("Select Art", 
