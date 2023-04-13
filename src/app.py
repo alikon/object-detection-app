@@ -5,6 +5,8 @@ import numpy as np
 import os
 import sys
 from glob import glob
+import requests
+from io import BytesIO
 
 from const import CLASSES, COLORS
 from settings import DEFAULT_CONFIDENCE_THRESHOLD, DEMO_IMAGE, MODEL, PROTOTXT
@@ -82,7 +84,23 @@ with upload_tab:
     else:
         demo_image = DEMO_IMAGE
         image = np.array(Image.open(demo_image))
+
+with url_tab:
+    url_text = st.empty()
+    url_reset = st.button("Clear URL", key="url_reset")
+    if url_reset and "image_url" in st.session_state:
+        st.session_state["image_url"] = ""
+        st.write(st.session_state["image_url"])
+
+    url = url_text.text_input("Image URL", key="image_url")
     
+    if url!="":
+        try:
+            response = requests.get(url)
+            image = Image.open(BytesIO(response.content))
+        except:
+            st.error("The URL does not seem to be valid.")
+
 confidence_threshold = st.slider(
     "Confidence threshold", 0.0, 1.0, DEFAULT_CONFIDENCE_THRESHOLD, 0.05
 )
