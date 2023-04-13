@@ -64,7 +64,7 @@ with gallery_tab:
     gallery_files = glob(os.path.join(".", "images", "*"))
     gallery_dict = {image_path.split("/")[-1].split(".")[-2]: image_path
         for image_path in gallery_files}
-    st.write(gallery_files)
+    st.write(gallery_dict.keys())
     options = list(gallery_dict.keys())
     file_name = st.selectbox("Select Art", 
                         options=options, index=options.index("demo"))
