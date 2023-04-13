@@ -81,9 +81,9 @@ with upload_tab:
     if img_file_buffer is not None:
         image = np.array(Image.open(img_file_buffer))
     
-    else:
-        demo_image = DEMO_IMAGE
-        image = np.array(Image.open(demo_image))
+    #else:
+    #    demo_image = DEMO_IMAGE
+    #    image = np.array(Image.open(demo_image))
 
 with url_tab:
     url_text = st.empty()
