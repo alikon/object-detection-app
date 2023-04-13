@@ -61,7 +61,7 @@ st.write(*CLASSES)
 gallery_tab, upload_tab, url_tab = st.tabs(["Gallery", "Upload", "Image URL"])
 
 with gallery_tab:
-    gallery_files = glob(os.path.join(".", "images", "*"))
+    gallery_files = glob(os.path.join(".", "gallery", "*"))
     gallery_dict = {image_path.split("/")[-1].split(".")[-2]: image_path
         for image_path in gallery_files}
     st.write(gallery_dict.keys())
@@ -69,7 +69,7 @@ with gallery_tab:
     file_name = st.selectbox("Select Art", 
                         options=options, index=options.index("demo"))
     
-    file = '.' + gallery_dict[file_name]
+    file =  gallery_dict[file_name]
     if st.session_state.get("file_uploader") is not None:
         st.warning("To use the Gallery, remove the uploaded image first.")
     if st.session_state.get("image_url") not in ["", None]:
