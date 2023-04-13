@@ -71,7 +71,7 @@ with gallery_tab:
     file_name = st.selectbox("Select Art", 
                         options=options, index=options.index("demo"))
     
-    file =  gallery_dict[file_name]
+    file =  '.' + gallery_dict[file_name]
     if st.session_state.get("file_uploader") is not None:
         st.warning("To use the Gallery, remove the uploaded image first.")
     if st.session_state.get("image_url") not in ["", None]:
